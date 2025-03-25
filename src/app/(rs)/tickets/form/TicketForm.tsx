@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function TicketForm({ customer, ticket }: Props) {
-  const defaultValues = {
+  const defaultValues: insertTicketSchemaType = {
     id: ticket?.id ?? 0,
     customerId: ticket?.customerId ?? customer.id,
     title: ticket?.title ?? "",
@@ -23,13 +23,13 @@ export default function TicketForm({ customer, ticket }: Props) {
     tech: ticket?.tech ?? "new-ticket@example.com"
   }
 
-  const form = useForm<insertCustomerSchemaType>({
+  const form = useForm<insertTicketSchemaType>({
     mode: "onBlur",
-    resolver: zodResolver(insertCustomerSchema),
+    resolver: zodResolver(insertTicketSchema),
     defaultValues,
   })
 
-  async function submitForm(data: insertCustomerSchemaType) {
+  async function submitForm(data: insertTicketSchemaType) {
     console.log(data)
   }
 
@@ -37,7 +37,7 @@ export default function TicketForm({ customer, ticket }: Props) {
     <div className="flex flex-col gap-1 sm:px-8">
       <div>
         <h2 className="text-2xl font-bold">
-          {customer?.id ? "Edit" : "New"} Customer Form
+          {ticket?.id ? "Edit" : "New"} Ticket {ticket?.id ? `# ${ticket.id}` : "Form"}
         </h2>
       </div>
       <Form {...form}>

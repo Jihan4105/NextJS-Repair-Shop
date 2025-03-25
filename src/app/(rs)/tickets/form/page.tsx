@@ -1,6 +1,7 @@
 import { getCustomer } from "@/lib/queries/getCustomers";
 import { getTicket } from "@/lib/queries/getTicket";
 import { BackButton } from "@/components/BackButton";
+import TicketForm from "@/app/(rs)/tickets/form/TicketForm";
 
 export default async function TicketFormPage({
   searchParams
@@ -13,7 +14,7 @@ export default async function TicketFormPage({
     if(!customerId && !ticketId) {
       return(
         <>
-          <h2 className="text-2xl mb-2">Customer ID or Customer ID required to load ticket form</h2>
+          <h2 className="text-2xl mb-2">Ticket ID or Customer ID required to load ticket form</h2>
           <BackButton title="Go Back" variant="default" />
         </>
       )
@@ -43,6 +44,9 @@ export default async function TicketFormPage({
 
       // return ticket form
       console.log(customer)
+      return (
+        <TicketForm customer={customer} />
+      )
     }
 
     // Edit ticket form
@@ -63,6 +67,9 @@ export default async function TicketFormPage({
       // return ticket form
       console.log("ticket: ", ticket)
       console.log("customer: ", customer)
+      return (
+        <TicketForm customer={customer} ticket={ticket} />
+      )
     }
     
   } catch (error) {
