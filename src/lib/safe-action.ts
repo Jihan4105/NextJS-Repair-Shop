@@ -12,6 +12,9 @@ export const actionClient = createSafeActionClient({
     console.error(`serverError: ${e.message}`);
     console.error(`metadata: ${metadata?.actionName}`);
     console.error(`clientInput: ${JSON.stringify(clientInput)}`);
+    if(e.constructor.name === "NeonDbError") {
+      return "Database Error: Your data did not save."
+    }
     return e.message
   }
 })

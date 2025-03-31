@@ -31,7 +31,7 @@ type Props<S> = {
 } 
 
 export function SelectWithLabel<S>({
-  fieldTitle, nameInSchema, data, className, ...props
+  fieldTitle, nameInSchema, data, className
 }: Props<S>) {
   const form = useFormContext()
 
