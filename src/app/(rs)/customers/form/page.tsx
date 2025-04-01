@@ -2,6 +2,7 @@ import { getCustomer } from "@/lib/queries/getCustomers";
 import { BackButton } from "@/components/BackButton"
 
 import CustomerForm from "@/app/(rs)/customers/form/CustomerForm";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 
 export async function generateMetaData({
   searchParams
@@ -21,6 +22,15 @@ export default async function CustomerFormPage({
   searchParams: Promise<{ [key: string]: string | undefined }>
 }) {
   try {
+    // getPermission(): Check if the current user has a permission
+    // getPermissions(): Get the current user's permissions
+    // isLoading: Check if the client is still loading the user's permissions
+    // const permObj = getPermissions()
+    // const isAuthorized = !isLoading && permObj.permissions.some(perm => perm === "manager" || perm === "admin")
+    const { getPermission } = getKindeServerSession()
+    const managerPermission = await getPermission("manager")
+    const isManager = managerPermission?.isGranted
+
     const { customerId } = await searchParams
 
     // Edit customer form
@@ -35,14 +45,11 @@ export default async function CustomerFormPage({
           </>
         )
       }
-
-      console.log(customer)
-
       // put customer form component
-      return <CustomerForm customer={customer} />
+      return <CustomerForm isManager={isManager} customer={customer} />
     } else {
       // new customer form component
-      return <CustomerForm />
+      return <CustomerForm isManager={isManager}/>
     }
     
   } catch (error) {

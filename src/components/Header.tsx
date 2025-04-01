@@ -14,9 +14,9 @@ export function Header() {
 
         <div className="flex items-center gap-2">
 
-          <NavButton href="/home" label="Home" icon={House} />
+          <NavButton href="/tickets" label="Home" icon={House} />
 
-          <Link href="/home" className="flex justify-center items-center gap-2 ml-0" title="Home">
+          <Link href="/tickets" className="flex justify-center items-center gap-2 ml-0" title="Home">
             <h1 className="hidden sm:block text-xl font-bold m-0 mt-1">
               Computer Repair Shop
             </h1>

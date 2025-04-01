@@ -10,8 +10,6 @@ import { SelectWithLabel } from "@/components/inputs/SelectWithLabel"
 import { TextAreaWithLabel } from "@/components/inputs/TextAreaWithLabel"
 import { CheckboxWithLabel } from "@/components/inputs/CheckboxWithLabel"
 
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs"
-
 import { StatesArray } from "@/constants/StatesArray"
 
 import { insertCustomerSchema, type insertCustomerSchemaType, type selectCustomerSchemaType } from "@/zod-schemas/customer"
@@ -23,17 +21,10 @@ import { DisplayServerActionResponse } from "@/components/DisplayServerActionRes
 
 type Props = {
   customer?: selectCustomerSchemaType,
+  isManager: boolean | undefined,
 }
 
-export default function CustomerForm({ customer }: Props) {
-  // getPermission(): Check if the current user has a permission
-  // getPermissions(): Get the current user's permissions
-  // isLoading: Check if the client is still loading the user's permissions
-  const { getPermission, isLoading } = useKindeBrowserClient()
-  const isManager = !isLoading && getPermission("manager")?.isGranted
-  // const permObj = getPermissions()
-  // const isAuthorized = !isLoading && permObj.permissions.some(perm => perm === "manager" || perm === "admin")
-
+export default function CustomerForm({ customer, isManager = false }: Props) {
   const defaultValues: insertCustomerSchemaType = {
     id: customer?.id ?? 0,
     firstName: customer?.firstName ?? "",
@@ -137,7 +128,7 @@ export default function CustomerForm({ customer }: Props) {
               nameInSchema="notes"
               className="h-40"
             />
-            {isLoading ? <p>Loading...</p> : isManager && customer?.id ? (
+            {isManager && customer?.id ? (
               <CheckboxWithLabel<insertCustomerSchemaType> 
                 fieldTitle="Active"
                 nameInSchema="active"

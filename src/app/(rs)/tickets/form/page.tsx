@@ -81,9 +81,9 @@ export default async function TicketFormPage({
         const { users } = await Users.getUsers()
 
         const techs = user ? users!.map(user => ({ id: user.email!, description: user.email! })): []
-        return <TicketForm customer={customer} techs={techs} />
+        return <TicketForm customer={customer} techs={techs}  isManager={isManager}/>
       } else {
-        return <TicketForm customer={customer} />
+        return <TicketForm customer={customer} isManager={isManager}/>
       }
     }
 
@@ -108,10 +108,10 @@ export default async function TicketFormPage({
         const { users } = await Users.getUsers()
 
         const techs = user ? users!.map(user => ({ id: user.email!.toLowerCase(), description: user.email!.toLowerCase() })): []
-        return <TicketForm customer={customer} ticket={ticket} techs={techs} />
+        return <TicketForm customer={customer} ticket={ticket} techs={techs} isManager={isManager} />
       } else {
         const isEditable = user.email?.toLowerCase() === ticket.tech.toLowerCase()
-        return <TicketForm customer={customer} ticket={ticket} isEditable={isEditable} />
+        return <TicketForm customer={customer} ticket={ticket} isEditable={isEditable} isManager={isManager} />
       }
     }
     
