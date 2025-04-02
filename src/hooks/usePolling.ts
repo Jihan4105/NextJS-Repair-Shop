@@ -14,6 +14,6 @@ export function usePolling(ms: number = 60000, searchParam: string | null) {
     }, ms)
 
     return () => clearInterval(intervalId)
-  }, [searchParam, ms])
+  }, [searchParam, ms]) // eslint-disable-line react-hooks/exhaustive-deps
   // because we didn't give router in dependencies, eslint return warning. but, if we do that. it will rerender just everytime because router is not static value it's object.
 }

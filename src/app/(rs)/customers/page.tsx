@@ -3,7 +3,7 @@ import { getCustomerSearchResults } from "@/lib/queries/getCustomerSearchResults
 import CustomerTable from "@/app/(rs)/customers/CustomerTable"
 
 export const metadata = {
-  title: "Customer Searcj",
+  title: "Customer Search",
 }
 
 export default async function Customers({
